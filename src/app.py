@@ -39,10 +39,10 @@ def handle_hello():
 @app.route('/members/<int:id>', methods=['GET'])
 def handle_member(id):
     member = jackson_family.get_member(id)
-    if member:
-        return jsonify(member), 200
-    else:
+    if member is None:
         return jsonify({"msg": "Miembro no encontrado"}), 404
+    
+    return jsonify(member), 200
 
 @app.route('/members', methods=['POST'])
 def handle_add_member():
