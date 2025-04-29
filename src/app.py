@@ -49,8 +49,8 @@ def handle_add_member():
     request_body = request.json
     if request_body and "first_name" in request_body and "age" in request_body and "lucky_numbers" in request_body:
         if isinstance(request_body["lucky_numbers"], list):
-            jackson_family.add_member(request_body)
-            return jsonify(jackson_family.get_all_members()), 200
+            member = jackson_family.add_member(request_body)
+            return jsonify(member), 200
         else:
             return jsonify({"msg": "lucky_numbers debe ser una lista"}), 400
     else:
@@ -58,11 +58,11 @@ def handle_add_member():
 
 
 @app.route('/members/<int:id>', methods=['DELETE'])
-def handle_delete_member(member_id):
-    if jackson_family.get_member(member_id) is None:
+def handle_delete_member(id):
+    if jackson_family.get_member(id) is None:
         return jsonify({"msg": "Miembro no encontrado"}), 404
     else:
-        jackson_family.delete_member(member_id)
+        jackson_family.delete_member(id)
         return jsonify({"done": True}), 200
 
 

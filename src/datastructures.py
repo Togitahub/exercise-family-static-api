@@ -51,6 +51,7 @@ class FamilyStructure:
             member['last_name'] = self.last_name
         
         self._members.append(member)
+        return member
         pass
 
     def delete_member(self, id):
